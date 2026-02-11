@@ -1,25 +1,25 @@
 # WavBench
 
 This repo contains the code and data of:
-[**WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models**](https://wavbench.github.io/)
+[**WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models**](https://naruto-2024.github.io/wavbench.github.io/)
 
 <div align="center">
 
-[[**Paper**]](https://naruto-2024.github.io/wavbench.github.io/) &nbsp; [[**Website**]](https://naruto-2024.github.io/wavbench.github.io/#) &nbsp; [[**Dataset**]](https://huggingface.co/datasets/WavBench/WavBench)
+[[**Paper**]](https://naruto-2024.github.io/wavbench.github.io/) &nbsp; [[**Website**]](https://naruto-2024.github.io/wavbench.github.io/) &nbsp; [[**Dataset**]](https://huggingface.co/datasets/WavBench/WavBench)
 
 </div>
 
 ## Overview
 
 <div align="center">
-  <img src="colloquial_expression.jpg" width="100%"/>
+  <img src="assets/colloquial_expression.jpg" width="100%"/>
   <br>
   <em>Figure 1: Examples of Colloquial Expression in WavBench, covering diverse cognitive domains across Basic and Pro subsets.</em>
 </div>
 <br>
 
 <div align="center">
-  <img src="acoustic_interaction.jpg" width="100%"/>
+  <img src="assets/acoustic_interaction.jpg" width="100%"/>
   <br>
   <em>Figure 2: Examples of Acoustic Interaction in WavBench, demonstrating Explicit Understanding, Explicit Generation, and Implicit Dialogue.</em>
 </div>
