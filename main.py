@@ -540,7 +540,7 @@ Examples:
 
     # Paths
     parser.add_argument(
-        "--data_dir", type=str, default="./wavbench",
+        "--data_dir", type=str, default="./WavBench",
         help="Base directory for WavBench data"
     )
     parser.add_argument(
