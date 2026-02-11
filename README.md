@@ -191,6 +191,20 @@ python evaluate.py --eval_type acoustic --dataset explicit_generation_emotion
 * `--eval_type`: Choose between `colloquial` or `acoustic`.
 * `--dataset`: Specific dataset name (e.g., `basic_code`) or use `all` to run the entire suite.
 
+<details>
+<summary><strong>👇 Available Dataset Options (for <code>--data</code> / <code>--dataset</code>)</strong></summary>
+
+| Category | Available Values |
+| :--- | :--- |
+| **Basic** | `basic_code`, `basic_creative`, `basic_instruction`, `basic_logic`, `basic_math`, `basic_qa`, `basic_satety` |
+| **Pro** | `pro_code`, `pro_creative`, `pro_instruction`, `pro_logic`, `pro_math`, `pro_qa`, `pro_satety` |
+| **Explicit Generation** | `acoustic_explicit_generation_accent`, `acoustic_explicit_generation_age`, `acoustic_explicit_generation_audio`, `acoustic_explicit_generation_emotion`, `acoustic_explicit_generation_gender`, `acoustic_explicit_generation_lang`, `acoustic_explicit_generation_music`, `acoustic_explicit_generation_pitch`, `acoustic_explicit_generation_speed`, `acoustic_explicit_generation_volume` |
+| **Explicit Understanding** | `acoustic_explicit_understanding_accent`, `acoustic_explicit_understanding_age`, `acoustic_explicit_understanding_audio`, `acoustic_explicit_understanding_emotion`, `acoustic_explicit_understanding_gender`, `acoustic_explicit_understanding_lang`, `acoustic_explicit_understanding_music`, `acoustic_explicit_understanding_pitch`, `acoustic_explicit_understanding_speed`, `acoustic_explicit_understanding_volume` |
+| **Implicit** | `acoustic_implicit_age_generation`, `acoustic_implicit_emotion_generation`, `acoustic_implicit_pitch_generation`, `acoustic_implicit_speed_generation`, `acoustic_implicit_understanding` |
+| **Multi-round** | `acoustic_multi_round_generation`, `acoustic_multi_round_understanding` |
+
+</details>
+
 ### Step 3: Get Statistics
 `statistics.py` aggregates the evaluation results into a final report.
 
