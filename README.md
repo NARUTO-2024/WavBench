@@ -94,11 +94,25 @@ conda create -n wavbench python=3.10
 conda activate wavbench
 pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
 pip install -r requirements.txt
+
+git clone https://github.com/NARUTO-2024/WavBench.git
+cd WavBench
 ```
 
 ## Dataset
 
 The data used in this project is available at [WavBench Dataset](https://huggingface.co/datasets/WavBench/WavBench) hosted on Hugging Face.
+
+You can load the dataset directly using the Hugging Face `datasets` library:
+
+```python
+from datasets import load_dataset
+
+# Load the dataset directly from Hugging Face
+ds = load_dataset("WavBench/WavBench")
+```
+
+Alternatively, you can download the dataset to your local directory and use it directly.
 
 ### 1. Colloquial Expression
 This category is divided into **Basic** and **Pro** subsets. Each subset contains tasks across 7 diverse cognitive domains:
@@ -140,11 +154,15 @@ python main.py --model step_audio2 --data acoustic_explicit_generation_emotion -
 
 # Acoustic Multi-round Inference (With audio output)
 python main.py --model step_audio2 --data acoustic_multi_round_generation --audio_output
+
+# [Optional] Run with custom data directory
+python main.py --model step_audio2 --data basic_code --data_dir /path/to/your/wavbench
 ```
 
 **Supported Arguments:**
 * `--model`: Model name (e.g., `step_audio2`).
 * `--data`: Dataset name (e.g., `basic_code`, `pro_math`, `acoustic_explicit_generation_emotion`).
+* `--data_dir`: Optional. Base directory for WavBench data (Default: ./wavbench). Use this argument if you have downloaded the dataset to a specific location other than the default.
 * `--audio_output`: **Important Flag**. If set, the model generates audio files in addition to text.
     * **Required** for all **Acoustic** tasks (as evaluation relies on audio).
     * **Optional** for **Colloquial** tasks (useful if you want to check the TTS quality manually).
