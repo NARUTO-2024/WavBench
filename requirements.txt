@@ -1,0 +1,8 @@
+torch>=2.1.0
+transformers>=4.36.0
+soundfile>=0.12.0
+numpy>=1.24.0
+tqdm>=4.65.0
+loguru>=0.7.0
+openai>=1.0.0
+google-genai
