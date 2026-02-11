@@ -101,3 +101,82 @@ conda create -n wavbench python=3.8+
 conda activate wavbench
 pip install -r requirements.txt
 ```
+
+## Dataset
+
+The data used in this project is available at [WavBench Dataset](https://huggingface.co/datasets/WavBench/WavBench) hosted on Hugging Face.
+
+### 1. Colloquial Expression
+This category is divided into **Basic** and **Pro** subsets. Each subset contains tasks across 7 diverse cognitive domains:
+
+| Domain | Description |
+| :--- | :--- |
+| **Code** | Evaluate the model's ability to explain code logic conversationally. |
+| **Creative** | Evaluate creative writing without rigid formatting constraints. |
+| **Instruction** | Evaluate adherence to spoken instructions. |
+| **Logic** | Evaluate logical reasoning in a spoken context. |
+| **Math** | Evaluate the verbalization of mathematical reasoning. |
+| **QA** | Evaluate general knowledge answering capabilities. |
+| **Safety** | Evaluate safety mechanisms in spoken interaction. |
+
+### 2. Acoustic Interaction
+This category evaluates the model's paralinguistic capabilities across three dimensions: **Explicit Understanding**, **Explicit Generation**, and **Implicit Interaction**.
+
+| Category | Sub-tasks / Attributes |
+| :--- | :--- |
+| **Explicit Understanding** | **10 Attributes:** Accent, Age, Emotion, Gender, Language, Pitch, Speed, Volume, Audio, Music. |
+| **Explicit Generation** | **10 Attributes:** Accent, Age, Emotion, Gender, Language, Pitch, Speed, Volume, Audio, Music. |
+| **Implicit Interaction** | Single-turn Audio, Single-turn Text, Multi-turn Audio, Multi-turn Text. |
+
+## Evaluation
+
+WavBench provides a unified pipeline including Inference, Evaluation (LLM-as-a-judge), and Statistics.
+
+### Step 1: Run Inference
+`main.py` is the unified entry point for all dataset types.
+
+```bash
+# Example: Colloquial Basic Inference (Text only)
+python main.py --model step_audio2 --data basic_code
+
+# Example: Acoustic Generation Inference (With Audio Output)
+python main.py --model step_audio2 --data acoustic_explicit_generation_emotion --audio_output
+
+**Supported Arguments:**
+* `--model`: Model name (e.g., `step_audio2`).
+* `--data`: Dataset name (e.g., `basic_code`, `pro_math`, `acoustic_explicit_generation_emotion`).
+* `--audio_output`: Enable audio generation (**Essential** for Acoustic tasks).
+
+### Step 2: Automatic Evaluation
+`evaluate.py` uses LLMs (e.g., Gemini, GPT-4) to judge the responses based on the specific criteria of each subset.
+
+```bash
+# Evaluate Colloquial tasks
+export GOOGLE_API_KEY="your-api-key"
+python evaluate.py --eval_type colloquial --dataset basic_code
+
+# Evaluate Acoustic tasks
+python evaluate.py --eval_type acoustic --dataset explicit_generation_emotion
+```
+**Supported Arguments:**
+* `--eval_type`: Choose between `colloquial` or `acoustic`.
+* `--dataset`: Specific dataset name or use `all`.
+
+### Step 3: Get Statistics
+`statistics.py` aggregates the evaluation results into a final report.
+
+```bash
+python statistics.py --eval_dir ./eval_results --output ./statistics.txt
+```
+
+## Citation
+If you use WavBench in your research, please cite the following paper:
+
+```bibtex
+@article{wavbench2024,
+  title={WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models},
+  author={WavBench Team},
+  journal={arXiv preprint},
+  year={2024}
+}
+```
