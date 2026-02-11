@@ -1,25 +1,18 @@
-# WavBench
+# WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models
 
-This repo contains the code and data of:
-[**WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models**](https://naruto-2024.github.io/wavbench.github.io/)
+[**📖 Paper**](https://naruto-2024.github.io/wavbench.github.io/) | [**🏠 Website**](https://naruto-2024.github.io/wavbench.github.io/) | [**🤗 Dataset (HuggingFace)**](https://huggingface.co/datasets/WavBench/WavBench)
 
-<div align="center">
-
-[[**Paper**]](https://naruto-2024.github.io/wavbench.github.io/) &nbsp; [[**Website**]](https://naruto-2024.github.io/wavbench.github.io/) &nbsp; [[**Dataset**]](https://huggingface.co/datasets/WavBench/WavBench)
-
-</div>
-
-## Overview
+## Overview of WavBench
 
 <div align="center">
-  <img src="assets/colloquial_expression.jpg" width="100%"/>
+  <img src="assets/colloquial_expression.png" width="80%"/>
   <br>
   <em>Figure 1: Examples of Colloquial Expression in WavBench, covering diverse cognitive domains across Basic and Pro subsets.</em>
 </div>
 <br>
 
 <div align="center">
-  <img src="assets/acoustic_interaction.jpg" width="100%"/>
+  <img src="assets/acoustic_interaction.png" width="80%"/>
   <br>
   <em>Figure 2: Examples of Acoustic Interaction in WavBench, demonstrating Explicit Understanding, Explicit Generation, and Implicit Dialogue.</em>
 </div>
@@ -87,7 +80,7 @@ Below is the overall evaluation of WavBench across five panels: **Colloquial Exp
 | Music | 62.50 | 20.83 | 16.67 | **70.83** | 77.08 |
 | **Avg (Generation)** | 62.03 | 41.10 | 46.93 | 55.65 | **79.23** |
 | | | | | | |
-| **Panel E: Implicit Interaction** | | | | | |
+| **Panel E: Implicit** | | | | | |
 | Single-Turn (Text) | 1.85 | 1.84 | 2.23 | 1.12 | **2.43** |
 | Single-Turn (Audio) | 3.17 | 3.21 | 2.47 | **3.50** | 2.96 |
 | Multi-Turn (Text) | **4.88** | 4.57 | 4.61 | 4.38 | 4.48 |
@@ -97,8 +90,9 @@ Below is the overall evaluation of WavBench across five panels: **Colloquial Exp
 ## Setup
 
 ```shell
-conda create -n wavbench python=3.8+
+conda create -n wavbench python=3.10
 conda activate wavbench
+pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
 pip install -r requirements.txt
 ```
 
@@ -120,53 +114,74 @@ This category is divided into **Basic** and **Pro** subsets. Each subset contain
 | **Safety** | Evaluate safety mechanisms in spoken interaction. |
 
 ### 2. Acoustic Interaction
-This category evaluates the model's paralinguistic capabilities across three dimensions: **Explicit Understanding**, **Explicit Generation**, and **Implicit Interaction**.
+This category evaluates the model's paralinguistic capabilities across three dimensions: **Explicit Understanding**, **Explicit Generation**, and **Implicit**.
 
 | Category | Sub-tasks / Attributes |
 | :--- | :--- |
 | **Explicit Understanding** | **10 Attributes:** Accent, Age, Emotion, Gender, Language, Pitch, Speed, Volume, Audio, Music. |
 | **Explicit Generation** | **10 Attributes:** Accent, Age, Emotion, Gender, Language, Pitch, Speed, Volume, Audio, Music. |
-| **Implicit Interaction** | Single-turn Audio, Single-turn Text, Multi-turn Audio, Multi-turn Text. |
+| **Implicit** | Single-turn Audio, Single-turn Text, Multi-turn Audio, Multi-turn Text. |
 
 ## Evaluation
 
-WavBench provides a unified pipeline including Inference, Evaluation (LLM-as-a-judge), and Statistics.
 
 ### Step 1: Run Inference
 `main.py` is the unified entry point for all dataset types.
 
 ```bash
-# Example: Colloquial Basic Inference (Text only)
-python main.py --model step_audio2 --data basic_code
+# Colloquial Inference (Basic) - With audio output
+python main.py --model step_audio2 --data basic_code --audio_output
 
-# Example: Acoustic Generation Inference (With Audio Output)
+# Colloquial Inference (Pro) - With audio output
+python main.py --model step_audio2 --data pro_math --audio_output
+
+# Acoustic Single-turn Inference (With audio output)
 python main.py --model step_audio2 --data acoustic_explicit_generation_emotion --audio_output
+
+# Acoustic Multi-round Inference (With audio output)
+python main.py --model step_audio2 --data acoustic_multi_round_generation --audio_output
+```
 
 **Supported Arguments:**
 * `--model`: Model name (e.g., `step_audio2`).
 * `--data`: Dataset name (e.g., `basic_code`, `pro_math`, `acoustic_explicit_generation_emotion`).
-* `--audio_output`: Enable audio generation (**Essential** for Acoustic tasks).
+* `--audio_output`: **Important Flag**. If set, the model generates audio files in addition to text.
+    * **Required** for all **Acoustic** tasks (as evaluation relies on audio).
+    * **Optional** for **Colloquial** tasks (useful if you want to check the TTS quality manually).
 
 ### Step 2: Automatic Evaluation
-`evaluate.py` uses LLMs (e.g., Gemini, GPT-4) to judge the responses based on the specific criteria of each subset.
+`evaluate.py` uses LLMs (Gemini) to judge the responses based on the specific criteria of each subset.
 
 ```bash
-# Evaluate Colloquial tasks
+# Option 1: Set API key via environment variable
 export GOOGLE_API_KEY="your-api-key"
+
+# Evaluate ALL Colloquial datasets
+python evaluate.py --eval_type colloquial --dataset all
+
+# Evaluate a SPECIFIC Colloquial dataset
 python evaluate.py --eval_type colloquial --dataset basic_code
 
-# Evaluate Acoustic tasks
+# Evaluate ALL Acoustic datasets
+python evaluate.py --eval_type acoustic --dataset all
+
+# Evaluate a SPECIFIC Acoustic dataset
 python evaluate.py --eval_type acoustic --dataset explicit_generation_emotion
 ```
+
 **Supported Arguments:**
 * `--eval_type`: Choose between `colloquial` or `acoustic`.
-* `--dataset`: Specific dataset name or use `all`.
+* `--dataset`: Specific dataset name (e.g., `basic_code`) or use `all` to run the entire suite.
 
 ### Step 3: Get Statistics
 `statistics.py` aggregates the evaluation results into a final report.
 
 ```bash
+# Basic usage: Output to TXT file
 python statistics.py --eval_dir ./eval_results --output ./statistics.txt
+
+# Advanced usage: Output to TXT and CSV format simultaneously
+python statistics.py --eval_dir ./eval_results --output ./statistics.txt --csv
 ```
 
 ## Citation
