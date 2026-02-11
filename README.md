@@ -5,7 +5,7 @@ This repo contains the code and data of:
 
 <div align="center">
 
-[[**Paper**]](https://wavbench.github.io/) &nbsp; [[**Website**]](https://wavbench.github.io/) &nbsp; [[**Dataset**]](https://huggingface.co/datasets/WavBench/WavBench)
+[[**Paper**]](https://naruto-2024.github.io/wavbench.github.io/) &nbsp; [[**Website**]](https://naruto-2024.github.io/wavbench.github.io/#) &nbsp; [[**Dataset**]](https://huggingface.co/datasets/WavBench/WavBench)
 
 </div>
 
@@ -100,3 +100,4 @@ Below is the overall evaluation of WavBench across five panels: **Colloquial Exp
 conda create -n wavbench python=3.8+
 conda activate wavbench
 pip install -r requirements.txt
+```
