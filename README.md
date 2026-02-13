@@ -1,6 +1,6 @@
 # WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models
 
-[**📖 Paper**](https://naruto-2024.github.io/wavbench.github.io/) | [**🏠 Website**](https://naruto-2024.github.io/wavbench.github.io/) | [**🤗 Dataset (HuggingFace)**](https://huggingface.co/datasets/WavBench/WavBench)
+[**📖 Paper**](https://arxiv.org/abs/2602.12135) | [**🏠 Website**](https://naruto-2024.github.io/wavbench.github.io/) | [**🤗 Dataset (HuggingFace)**](https://huggingface.co/datasets/WavBench/WavBench)
 
 ## Overview of WavBench
 
