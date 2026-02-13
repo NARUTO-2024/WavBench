@@ -220,10 +220,13 @@ python statistics.py --eval_dir ./eval_results --output ./statistics.txt --csv
 If you use WavBench in your research, please cite the following paper:
 
 ```bibtex
-@article{wavbench2024,
-  title={WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models},
-  author={WavBench Team},
-  journal={arXiv preprint},
-  year={2024}
+@misc{li2026wavbenchbenchmarkingreasoningcolloquialism,
+      title={WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models}, 
+      author={Yangzhuo Li and Shengpeng Ji and Yifu Chen and Tianle Liang and Haorong Ying and Yule Wang and Junbo Li and Jun Fang and Zhou Zhao},
+      year={2026},
+      eprint={2602.12135},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2602.12135}, 
 }
 ```
